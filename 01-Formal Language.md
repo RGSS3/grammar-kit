@@ -224,7 +224,34 @@ to prove `aabb` is a string in L, the following derivation(rewriting) can be tak
 S => aSb => aaSbb => aaεbb
   2      2        1    
 ```
-
 Since the ε denotes the empty string, the result is aabb.
 
+In swi-prolog, you can do the generation work with an extension, which will probably be in the ISO prolog in the future.
+
+The rewrite rule is   
+   * rewrite S in lowercase
+   * rewrite ε in []
+   * rewrite single character in list, e.g. `a` is to be `[a]`
+
+```prolog 01/genL.pl
+% genereator for L
+s --> [].             % S => ε
+s --> [a], s, [b].    % S => a S b
+```
+
+```prolog swipl
+?- [genL].
+true.
+
+?- phrase(s, A).
+A = [] ;
+A = [a, b] ;
+A = [a, a, b, b] ;
+A = [a, a, a, b, b, b] ;
+A = [a, a, a, a, b, b, b, b] ;
+A = [a, a, a, a, a, b, b, b, b|...] .
+```
+
 More information and notation can be found on [this wiki page](https://en.wikipedia.org/wiki/Formal_grammar#Example), here we only care about the form of expression. And the definition of `S` is not given. All things left here will be discussed in detail in the next chapter.
+
+
