@@ -252,6 +252,15 @@ A = [a, a, a, a, b, b, b, b] ;
 A = [a, a, a, a, a, b, b, b, b|...] .
 ```
 
+Also, you may want to check if some string is in L:
+```prolog swipl
+?- phrase(s, [a, b, b]).
+false.
+
+?- phrase(s, [a, a, b, b]), !.
+true.
+```
+
 More information and notation can be found on [this wiki page](https://en.wikipedia.org/wiki/Formal_grammar#Example), here we only care about the form of expression. And the definition of `S` is not given. All things left here will be discussed in detail in the next chapter.
 
 
