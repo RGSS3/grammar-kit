@@ -71,7 +71,6 @@ In general,
 1. N and Σ have no common elements
 2. S ∈ N
 3. for all rules in P, LHS and RHS are both strings formed from characters in N and Σ.
-4. for all rules in P, LHS has at least a character from N.
 
 ##  2.2 Decription in Prolog
 In Prolog, we can describe the grammar in this way(only for this book, sure you can have other ways).
