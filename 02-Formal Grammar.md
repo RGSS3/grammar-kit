@@ -295,3 +295,27 @@ true.
 G = grammar{1: ('E'-->['T']), 2: ('E'-->['E', +, 'T']), 3: ('E'-->['E', -, 'T']), 4: ('T'-->['F']), 5: ('T'-->['T', *, 'F']), 6: ('T'-->['T', /, 'F']), 7: ('F'-->[integer]), 8: ('F'-->['(', 'E', ')'])},
 R = [2, 1, 4, 7, 4, 7] ;
 ```
+
+
+Also, try:
+```prolog swipl
+8 ?- g(G), Str = [integer, '+', '(', integer, '+', integer, ')'], length(R, N), N = 12, lmds2(G, R, ['E'], Str), lmds(G, R, ['E'], Str).
+[E]-->
+[E,+,T]-->
+[T,+,T]-->
+[F,+,T]-->
+[integer,+,T]-->
+[integer,+,F]-->
+[integer,+,(,E,)]-->
+[integer,+,(,E,+,T,)]-->
+[integer,+,(,T,+,T,)]-->
+[integer,+,(,F,+,T,)]-->
+[integer,+,(,integer,+,T,)]-->
+[integer,+,(,integer,+,F,)]-->
+[integer,+,(,integer,+,integer,)].
+G = grammar{1: ('E'-->['T']), 2: ('E'-->['E', +, 'T']), 3: ('E'-->['E', -, 'T']), 4: ('T'-->['F']), 5: ('T'-->['T', *, 'F']), 6: ('T'-->['T', /, 'F']), 7: ('F'-->[integer]), 8: ('F'-->['(', 'E', ')'])},
+Str = [integer, +, '(', integer, +, integer, ')'],
+R = [2, 1, 4, 7, 4, 8, 2, 1, 4|...],
+N = 12
+```
+This is slow, and we had to limit the length to tell whether it's done, since we don't provide any special information about the grammar, and Prolog will try all kinds of possibilities. Later we will disucss different type of grammars and how to deal each of them effectively and efficiently.
